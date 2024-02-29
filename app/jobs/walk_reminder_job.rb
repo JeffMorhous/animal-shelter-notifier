@@ -1,9 +1,10 @@
 class WalkReminderJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    Dog.where('last_walked < ?', 8.hours.ago).find_each do |dog|
-      puts "Reminder! It's time to walk: #{dog.name}"
+  def perform(dog)
+    if dog.last_walked_date < 8.hours.ago
+      puts "Reminder! Time to walk: #{dog.name}"
+      # Here you could also send an email or notification
     end
   end
 end
