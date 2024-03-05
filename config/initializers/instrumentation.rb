@@ -1,4 +1,4 @@
-ActiveSupport::Notifications.subscribe(/\.insights$/) do |*args|
+ActiveSupport::Notifications.subscribe(/\.active_job$/) do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
-  Honeybadger.event("activity", event.payload.compact)
+  Honeybadger.event("active_support", event.payload.compact.merge(event_name: event.name))
 end
